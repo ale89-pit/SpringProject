@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.tecninf.hrmanagement.dto.DipendenteDto;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
 import it.tecninf.hrmanagement.model.Tipskill;
@@ -49,6 +50,18 @@ public class DipendenteService {
 	public List<Dipendente> getSkillFilter(String skill) {
 		return (List<Dipendente>) dipendenteRepository.getSkillFilter(skill);
 	}
+	
+	public List<DipendenteDto> getDipendentiBetweenDateAndSkill(String danaInizio,String dataFine,String skill){
+		List<DipendenteDto> filterDto = new ArrayList<DipendenteDto>();  
+		List<Dipendente> filterList = dipendenteRepository.getDipendentiBetweenDateAndSkill(danaInizio, dataFine, skill);
+		
+		for(Dipendente d : filterList) {
+			DipendenteDto dto = new DipendenteDto(d.getNome(),d.getCognome(),d.getSkills());
+			filterDto.add(dto);
+		}
+		return filterDto;
+	
+	}
 
 	public int lastIdDipendente() {
 		return (int) dipendenteRepository.lastIdDipendente();
@@ -61,7 +74,10 @@ public class DipendenteService {
 	}
 	
 	
-	
+	public  Set<Tipskill> getSkillByDip (int idDip) {
+		Dipendente dip = dipendenteRepository.getSkillFilterByIdDip(idDip);
+		return  dip.getSkills();
+	}
 	
 
 	public void updateDipendente(String matricola, String nome, String cognome, Date data_di_nascita, String indirizzo,

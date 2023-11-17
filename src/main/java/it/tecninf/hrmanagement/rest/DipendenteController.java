@@ -32,8 +32,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import it.tecninf.hrmanagement.dto.DipendenteDto;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
+import it.tecninf.hrmanagement.model.Tipskill;
+import it.tecninf.hrmanagement.repository.DipendenteRepository;
 import it.tecninf.hrmanagement.service.CompetenzeService;
 import it.tecninf.hrmanagement.service.CurriculumService;
 import it.tecninf.hrmanagement.service.DipendenteService;
@@ -48,6 +51,7 @@ public class DipendenteController {
 
 	@Autowired
 	private DipendenteService dipendenteService;
+	
 
 	@Autowired
 	private CurriculumService curriculumService;
@@ -75,6 +79,16 @@ public class DipendenteController {
 	@GetMapping("/getSkill")
 	public List<Dipendente> getSkillFilter(@RequestParam String skill) {
 		return (List<Dipendente>) dipendenteService.getSkillFilter(skill);
+	}
+	
+	@GetMapping("/getSkillBornDate")
+	public List<DipendenteDto> getDipendenteBetweenDateAndSkill(@RequestParam String dataInizio,@RequestParam String dataFine,@RequestParam String skill){
+		return dipendenteService.getDipendentiBetweenDateAndSkill(dataInizio, dataFine, skill);
+	}
+	
+	@GetMapping("/skillByIdDip")
+	public  Set<Tipskill> getSkillFromDip(@RequestParam int idDip){
+		return dipendenteService.getSkillByDip(idDip);
 	}
 	
 	
@@ -132,11 +146,12 @@ public class DipendenteController {
 				dipendente.getRefNazionalita().getIdRefNazionalita(), dipendente.getIdDipendente());
 	}
 
-	@PutMapping("/deleteDipendente")
+	@DeleteMapping("/deleteDipendente")
 	public void cancellaDipendente(@RequestParam int dipendente_id) {
 		System.out.println("Cancellazione del dipendente!");
 		dipendenteService.deleteByIdDip(dipendente_id);
 	}
+	
 	
 	
 }

@@ -36,6 +36,8 @@ public class CompetenzeController {
 		return data;
 	}
 	
+
+	
 	//commento test
 	
 	

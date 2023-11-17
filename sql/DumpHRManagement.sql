@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `curriculum`;
 CREATE TABLE `curriculum` (
   `id_curriculum` int NOT NULL AUTO_INCREMENT,
   `id_dipendente` int NOT NULL,
-  `curriculum` blob,
+  `curriculum` longblob,
   PRIMARY KEY (`id_curriculum`),
   KEY `id_dipendente_idx` (`id_dipendente`),
   CONSTRAINT `id_di` FOREIGN KEY (`id_dipendente`) REFERENCES `dipendente` (`id_dipendente`)

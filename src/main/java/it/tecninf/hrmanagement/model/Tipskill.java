@@ -14,14 +14,15 @@ public class Tipskill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_tipskill")
 	private int idTipskill;
 
 	@Column(name="tipologia_skill")
 	private String tipologiaSkill;
 	
-	@ManyToMany(mappedBy = "skills" )
-	private Set<Dipendente> dipendenti = new HashSet<>();
+//	@ManyToMany(mappedBy = "skills" )
+//	private Set<Dipendente> dipendenti = new HashSet<>();
 
 
 	public Tipskill() {
@@ -42,4 +43,16 @@ public class Tipskill implements Serializable {
 	public void setTipologiaSkill(String tipologiaSkill) {
 		this.tipologiaSkill = tipologiaSkill;
 	}
+	
+
+//	public Set<Dipendente> getDipendenti() {
+//		return dipendenti;
+//	}
+//
+//	public void setDipendenti(Set<Dipendente> dipendenti) {
+//		this.dipendenti = dipendenti;
+//	}
+
+
+	
 }

@@ -29,6 +29,12 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 	
 	@Query(value = "SELECT * FROM hrmanagement.dipendente INNER JOIN hrmanagement.competenze ON dipendente.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.curriculum ON curriculum.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.tipskill ON competenze.id_tipskill = tipskill.id_tipskill WHERE tipskill.tipologia_skill = ?", nativeQuery = true)
 	public List<Dipendente> getSkillFilter(String skill);
+	
+	@Query(value = "SELECT * FROM hrmanagement.dipendente INNER JOIN hrmanagement.competenze ON dipendente.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.curriculum ON curriculum.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.tipskill ON competenze.id_tipskill = tipskill.id_tipskill WHERE hrmanagement.dipendente.id_dipendente = ?", nativeQuery = true)
+	public Dipendente getSkillFilterByIdDip(int id_dipendente);
+	
+	@Query(value = "SELECT * FROM hrmanagement.dipendente INNER JOIN hrmanagement.competenze ON dipendente.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.curriculum ON curriculum.id_dipendente = competenze.id_dipendente INNER JOIN hrmanagement.tipskill ON competenze.id_tipskill = tipskill.id_tipskill WHERE hrmanagement.dipendente.data_di_nascita BETWEEN :dataInizio AND :dataFine AND tipskill.tipologia_skill LIKE :skill ORDER BY cognome ASC", nativeQuery = true)
+	public List<Dipendente> getDipendentiBetweenDateAndSkill(String dataInizio,String dataFine,String skill);
 
 	@Modifying
 	@Transactional

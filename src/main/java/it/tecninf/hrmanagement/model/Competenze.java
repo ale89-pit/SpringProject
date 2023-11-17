@@ -13,7 +13,10 @@ public class Competenze implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_competenze")
+//	@Column(name="id_competenze")
+	@SequenceGenerator(name = "id_competenze", sequenceName = "id_competenze", allocationSize = 1, initialValue = 99)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_competenze")
+
 	private int idCompetenze;
 
 	@Column(name="id_dipendente")
@@ -71,6 +74,15 @@ public class Competenze implements Serializable {
 
 	public void setDipendenti(Set<Dipendente> dipendenti) {
 		this.dipendenti = dipendenti;
+	}
+	public Set<Dipendente> getDipendenti() {
+	return this.dipendenti;
+	}
+
+	@Override
+	public String toString() {
+		return "Competenze [idCompetenze=" + idCompetenze + ", idDipendente=" + idDipendente + ", idTipskill="
+				+ idTipskill + ", idCurriculum=" + idCurriculum + "]";
 	}
 
 

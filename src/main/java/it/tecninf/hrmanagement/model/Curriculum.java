@@ -1,6 +1,7 @@
 package it.tecninf.hrmanagement.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Curriculum implements Serializable {
 	private int idCurriculum;
 
 	@Lob
+	@Column(length = 16777215)
 	private byte[] curriculum;
 	
 	@Transient
@@ -93,6 +95,10 @@ public class Curriculum implements Serializable {
 		Curriculum other = (Curriculum) obj;
 		return idCurriculum == other.idCurriculum;
 	}
+
+
+
+
 	
 
 	

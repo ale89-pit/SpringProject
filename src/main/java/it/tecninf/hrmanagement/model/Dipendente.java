@@ -39,7 +39,7 @@ public class Dipendente implements Serializable {
 	@Column(name="row_exist")
 	private int rowExist;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "competenze",
 	joinColumns = {@JoinColumn(name="id_dipendente")},
 	inverseJoinColumns= {@JoinColumn(name="id_tipskill")})
@@ -50,7 +50,7 @@ public class Dipendente implements Serializable {
 	@JoinColumn(name="id_ref_nazionalita")
 	private RefNazionalita refNazionalita;
 	
-	@OneToMany(mappedBy="dipendente",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="dipendente",fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
 	private Set<Curriculum> curriculum = new HashSet<Curriculum>(); 
 	
 
@@ -144,6 +144,14 @@ public class Dipendente implements Serializable {
 
 	public void setCurriculum(Set<Curriculum> curriculum) {
 		this.curriculum = curriculum;
+	}
+
+	@Override
+	public String toString() {
+		return "Dipendente [idDipendente=" + idDipendente + ", citta=" + citta + ", cognome=" + cognome
+				+ ", dataDiNascita=" + dataDiNascita + ", indirizzo=" + indirizzo + ", matricola=" + matricola
+				+ ", nome=" + nome + ", rowExist=" + rowExist + ", skills=" + skills + ", refNazionalita="
+				+ refNazionalita + ", curriculum=" + curriculum + "]";
 	}
 
 	
