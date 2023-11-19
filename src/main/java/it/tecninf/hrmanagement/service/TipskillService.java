@@ -43,7 +43,7 @@ public class TipskillService {
 	public void aggiungiSkill(Tipskill tipskill) {
 		tipskillRepository.save(tipskill);
 	}
-	
+	//non dai la possibilit che ci sia uno storico di CVs
 	public void aggiungiSkillToCV(int idCurriculum,List<Integer> tpskill) throws IOException {
 	    Curriculum c = curriculumRepository.findById(idCurriculum).orElse(null);
 
