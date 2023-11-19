@@ -3,6 +3,7 @@ package it.tecninf.hrmanagement.rest;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -43,9 +44,9 @@ public class CurriculumController {
 	}
 	
 	@GetMapping("/findWithCompetence")
-	public List<CurriculumDto> getCvWithCompetence(){
+	public List<CurriculumDto> getCvWithCompetence(@RequestParam List<String> skill){
 		List<CurriculumDto> filterList = new ArrayList<CurriculumDto>();
-		List<Curriculum> list = curriculumService.getCvWithCompetence();
+		List<Curriculum> list = curriculumService.getCvWithCompetence(skill);
 		
 		for(Curriculum d : list) {
 			
@@ -66,7 +67,7 @@ public class CurriculumController {
 	}
 	
 	@PostMapping("/addCV/{id_dipendente}")
-	public void addCvDipendente(@PathVariable int id_dipendente,@RequestParam("cv") MultipartFile cv) throws Exception {
+	public void addCvDipendente(@PathVariable int id_dipendente,@RequestParam("cv")Set<MultipartFile> cv) throws Exception {
 	curriculumService.addCurriculum(id_dipendente, cv);
 		
 	}

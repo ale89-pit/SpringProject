@@ -44,12 +44,14 @@ public class TipskillService {
 		tipskillRepository.save(tipskill);
 	}
 	
-	public void aggiungiSkillToCV(int idCurriculum,List<Integer> tpskill) throws IOException {
+	public void aggiungiSkillToCV(int idCurriculum,Set<Integer> tpskill) throws Exception {
 	    Curriculum c = curriculumRepository.findById(idCurriculum).orElse(null);
 
 	    if (c != null) {
 	        Dipendente d = c.getDipendente();
 	        Set<Tipskill> skill = dipendeteService.getSkillByDip(d.getIdDipendente());
+	      
+	      
 	        
 	        if (d != null) {
 	            for (Integer s : tpskill) {
@@ -59,7 +61,10 @@ public class TipskillService {
 	                    if (skill.contains(t)) {
 	                        throw new IOException("Questa skill: " + t.getTipologiaSkill() + " è già presente");
 	                    } else {
+	                    	 List<Competenze> listcompente = (List<Competenze>) compentenzeRepository.findAll();
+	              	       int index= listcompente.get(listcompente.size()-1).getIdCompetenze();
 	                        Competenze competenza = new Competenze();
+	                        competenza.setIdCompetenze(index+1);
 	                        competenza.setIdTipskill(t.getIdTipskill());
 	                        competenza.setIdDipendente(d.getIdDipendente());
 	                        competenza.setIdCurriculum(idCurriculum);

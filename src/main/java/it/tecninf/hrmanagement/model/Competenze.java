@@ -13,10 +13,9 @@ public class Competenze implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@Column(name="id_competenze")
-	@SequenceGenerator(name = "id_competenze", sequenceName = "id_competenze", allocationSize = 1, initialValue = 99)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_competenze")
-
+	@Column(name="id_competenze")
+//	@SequenceGenerator(name = "id_competenze", sequenceName = "id_competenze", allocationSize = 1, initialValue = 99)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_competenze")
 	private int idCompetenze;
 
 	@Column(name="id_dipendente")

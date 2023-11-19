@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import it.tecninf.hrmanagement.dto.DipendenteDto;
@@ -74,9 +75,12 @@ public class DipendenteService {
 	}
 	
 	
-	public  Set<Tipskill> getSkillByDip (int idDip) {
-		Dipendente dip = dipendenteRepository.getSkillFilterByIdDip(idDip);
-		return  dip.getSkills();
+	public  Set<Tipskill> getSkillByDip (int idDip){
+		Dipendente dip = dipendenteRepository.findById(idDip).get();
+		System.out.println(dip);
+			
+			return  dip.getSkills();
+		
 	}
 	
 
@@ -88,7 +92,7 @@ public class DipendenteService {
 	}
 
 	public void deleteByIdDip(int id_dipendente) {
-		dipendenteRepository.deleteByIdDip(id_dipendente);
+		dipendenteRepository.deleteById(id_dipendente);
 	}
 	
 	

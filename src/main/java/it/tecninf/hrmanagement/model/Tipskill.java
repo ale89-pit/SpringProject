@@ -21,8 +21,8 @@ public class Tipskill implements Serializable {
 	@Column(name="tipologia_skill")
 	private String tipologiaSkill;
 	
-//	@ManyToMany(mappedBy = "skills" )
-//	private Set<Dipendente> dipendenti = new HashSet<>();
+	@ManyToMany(mappedBy = "skills" ,cascade = CascadeType.ALL)
+	private Set<Dipendente> dipendenti = new HashSet<>();
 
 
 	public Tipskill() {

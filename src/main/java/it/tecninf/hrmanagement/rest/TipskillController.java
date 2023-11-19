@@ -1,7 +1,7 @@
 package it.tecninf.hrmanagement.rest;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -48,7 +48,7 @@ public class TipskillController {
 	@Modifying
 	@PostMapping("/addSkillToDip")
 	
-	public void addSkillToDip(@RequestParam int idCv,@RequestParam List<Integer> tpskill) throws IOException {
+	public void addSkillToDip(@RequestParam int idCv,@RequestParam Set<Integer> tpskill) throws Exception {
 		tipskillService.aggiungiSkillToCV(idCv, tpskill);
 	}
 }

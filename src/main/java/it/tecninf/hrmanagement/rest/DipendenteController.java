@@ -87,7 +87,7 @@ public class DipendenteController {
 	}
 	
 	@GetMapping("/skillByIdDip")
-	public  Set<Tipskill> getSkillFromDip(@RequestParam int idDip){
+	public  Set<Tipskill> getSkillFromDip(@RequestParam int idDip) throws Exception{
 		return dipendenteService.getSkillByDip(idDip);
 	}
 	
@@ -148,6 +148,7 @@ public class DipendenteController {
 
 	@DeleteMapping("/deleteDipendente")
 	public void cancellaDipendente(@RequestParam int dipendente_id) {
+		
 		System.out.println("Cancellazione del dipendente!");
 		dipendenteService.deleteByIdDip(dipendente_id);
 	}
