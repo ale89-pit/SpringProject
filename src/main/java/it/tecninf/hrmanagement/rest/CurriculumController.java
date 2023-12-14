@@ -44,9 +44,9 @@ public class CurriculumController {
 	}
 	
 	@GetMapping("/findWithCompetence")
-	public List<CurriculumDto> getCvWithCompetence(@RequestParam List<String> skill){
+	public List<CurriculumDto> getCvWithCompetence(){
 		List<CurriculumDto> filterList = new ArrayList<CurriculumDto>();
-		List<Curriculum> list = curriculumService.getCvWithCompetence(skill);
+		List<Curriculum> list = curriculumService.getCvWithCompetence();
 		
 		for(Curriculum d : list) {
 			

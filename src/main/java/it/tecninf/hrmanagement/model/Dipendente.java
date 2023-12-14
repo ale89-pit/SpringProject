@@ -39,7 +39,7 @@ public class Dipendente implements Serializable {
 	@Column(name="row_exist")
 	private int rowExist;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "competenze",
 	joinColumns = {@JoinColumn(name="id_dipendente")},
 	inverseJoinColumns= {@JoinColumn(name="id_tipskill")})

@@ -11,8 +11,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import it.tecninf.hrmanagement.dto.DipendenteDto;
+import it.tecninf.hrmanagement.dto.DipendenteDtoUpdate;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
 import it.tecninf.hrmanagement.model.Tipskill;
@@ -43,6 +46,11 @@ public class DipendenteService {
 	}
 
 	public Optional<Dipendente> getByID(int id) {
+		
+			if(!dipendenteRepository.existsById(id)) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Nessun Dipendente trovato");
+			}
+	
 		return dipendenteRepository.findById(id);
 	}
 
@@ -76,7 +84,7 @@ public class DipendenteService {
 	
 	
 	public  Set<Tipskill> getSkillByDip (int idDip){
-		Dipendente dip = dipendenteRepository.findById(idDip).get();
+		Dipendente dip = getByID(idDip).get();
 		System.out.println(dip);
 			
 			return  dip.getSkills();
@@ -84,11 +92,23 @@ public class DipendenteService {
 	}
 	
 
-	public void updateDipendente(String matricola, String nome, String cognome, Date data_di_nascita, String indirizzo,
-			String citta, int id_ref_nazionalita, int id_dipendente) {
-
-		dipendenteRepository.updateDipendente(matricola, nome, cognome, data_di_nascita, indirizzo, citta,
-				id_ref_nazionalita, id_dipendente);
+//	public void updateDipendente(String matricola, String nome, String cognome, Date data_di_nascita, String indirizzo,
+//			String citta, int id_ref_nazionalita, int id_dipendente) {
+//		
+//		dipendenteRepository.updateDipendente(matricola, nome, cognome, data_di_nascita, indirizzo, citta,
+//				id_ref_nazionalita, id_dipendente);
+//	}
+	
+	public void updateDipendente(DipendenteDtoUpdate dip, int id_dipendente) {
+		Dipendente d = getByID(id_dipendente).get();
+		
+		d.setCitta(dip.getCitta());
+		d.setCognome(dip.getCognome());
+		d.setDataDiNascita(dip.getDataDiNascita());
+		d.setIndirizzo(dip.getIndirizzo());
+		d.setNome(dip.getNome());
+		dipendenteRepository.updateDipendente(d.getMatricola(),d.getNome() , d.getCognome(), d.getDataDiNascita(), d.getIndirizzo(), d.getCitta(),
+				d.getRefNazionalita().getIdRefNazionalita(), id_dipendente);
 	}
 
 	public void deleteByIdDip(int id_dipendente) {

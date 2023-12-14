@@ -1,17 +1,10 @@
 package it.tecninf.hrmanagement.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Blob;
-import java.util.Arrays;
+
 import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +13,6 @@ import it.tecninf.hrmanagement.exception.RecourceAlreadyPresenteException;
 import it.tecninf.hrmanagement.exception.ResourceNotFoundException;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
-import it.tecninf.hrmanagement.model.Tipskill;
 import it.tecninf.hrmanagement.repository.CurriculumRepository;
 import it.tecninf.hrmanagement.repository.DipendenteRepository;
 
@@ -47,8 +39,8 @@ public class CurriculumService {
 		return lista;
 	}
 
-	public List<Curriculum> getCvWithCompetence(List<String> skill) {
-		return repository.getCvWhitCompetence(skill);
+	public List<Curriculum> getCvWithCompetence() {
+		return repository.getCvWhitCompetence();
 	}
 
 	public void addCurriculums(Set<Curriculum> curriculum) {
@@ -70,8 +62,8 @@ public class CurriculumService {
 					System.out.println(d.getCurriculum().add(saveCv));
 
 					// se il cv è gia presente lancia un'eccezione e non lo salva
-					if (d.getCurriculum().add((saveCv))) {
-						repository.save(saveCv);
+					if (d.getCurriculum().add(repository.save(saveCv))) {
+						
 //						dipRepository.updateDipendente(d.getMatricola(),d.getNome(), d.getCognome(), d.getDataDiNascita(), d.getIndirizzo(), d.getCitta(), d.getRefNazionalita().getIdRefNazionalita(), idDipendente);
 
 					} else {

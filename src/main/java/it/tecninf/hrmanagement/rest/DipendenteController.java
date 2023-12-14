@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import it.tecninf.hrmanagement.dto.DipendenteDto;
+import it.tecninf.hrmanagement.dto.DipendenteDtoUpdate;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
 import it.tecninf.hrmanagement.model.Tipskill;
@@ -52,7 +54,9 @@ public class DipendenteController {
 	@Autowired
 	private DipendenteService dipendenteService;
 	
-
+	@Autowired
+	private DipendenteRepository dipendenteRepository;
+	
 	@Autowired
 	private CurriculumService curriculumService;
 	
@@ -110,7 +114,7 @@ public class DipendenteController {
 			String matricola = dipendente.getNome().substring(0, 3).toUpperCase()
 					+ dipendente.getCognome().substring(0, 3).toUpperCase() + String.valueOf(lastInsertID);
 			dipendente.setMatricola(matricola);
-			dipendenteService.updateDipendente(dipendente.getMatricola(), dipendente.getNome(), dipendente.getCognome(),
+			dipendenteRepository.updateDipendente(dipendente.getMatricola(), dipendente.getNome(), dipendente.getCognome(),
 					dipendente.getDataDiNascita(), dipendente.getIndirizzo(), dipendente.getCitta(),
 					dipendente.getRefNazionalita().getIdRefNazionalita(), lastInsertID);
 
@@ -138,12 +142,10 @@ public class DipendenteController {
 	
 	
 
-	@PutMapping("/modificaDipendente")
-	public void modificaDipendente(@RequestBody Dipendente dipendente) {
+	@PutMapping("/modificaDipendente/{id_dipendente}")
+	public void modificaDipendente(@RequestBody DipendenteDtoUpdate dipendente,@PathVariable int id_dipendente) {
 		System.out.println("Modifica del dipendente!");
-		dipendenteService.updateDipendente(dipendente.getMatricola(), dipendente.getNome(), dipendente.getCognome(),
-				dipendente.getDataDiNascita(), dipendente.getIndirizzo(), dipendente.getCitta(), 
-				dipendente.getRefNazionalita().getIdRefNazionalita(), dipendente.getIdDipendente());
+		dipendenteService.updateDipendente(dipendente, id_dipendente);
 	}
 
 	@DeleteMapping("/deleteDipendente")

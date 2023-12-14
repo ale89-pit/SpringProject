@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import it.tecninf.hrmanagement.repository.CompetenzeRepository;
-import it.tecninf.hrmanagement.utility.Chart;
+
 
 @Service
 public class CompetenzeService {
