@@ -39,8 +39,8 @@ public class CurriculumService {
 		return lista;
 	}
 
-	public List<Curriculum> getCvWithCompetence() {
-		return repository.getCvWhitCompetence();
+	public List<Curriculum> getCvWithCompetence(List<String> skill) {
+		return repository.getCvWhitCompetence(skill);
 	}
 
 	public void addCurriculums(Set<Curriculum> curriculum) {
